@@ -1,18 +1,22 @@
 package service
 
 import (
-	"Secreto/helper"
-	"Secreto/model/domain"
+	"go-crud-auth/config"
+	"go-crud-auth/helper"
+	"go-crud-auth/model/domain"
 	"time"
 
 	"github.com/golang-jwt/jwt"
 )
 
 type AuthServiceImpl struct {
+	config *config.Config
 }
 
-func NewAuthService() AuthService {
-	return &AuthServiceImpl{}
+func NewAuthService(config *config.Config) AuthService {
+	return &AuthServiceImpl{
+		config: config,
+	}
 }
 
 func (service *AuthServiceImpl) CreateAccessToken(user domain.User) (accessToken string, expires int64, err error) {
@@ -24,7 +28,7 @@ func (service *AuthServiceImpl) CreateAccessToken(user domain.User) (accessToken
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	t, err := token.SignedString([]byte("secreto"))
+	t, err := token.SignedString([]byte(service.config.JWTSecretKey))
 	helper.PanicError(err)
 
 	return t, expires, err

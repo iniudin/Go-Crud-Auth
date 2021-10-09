@@ -1,26 +1,15 @@
 package main
 
 import (
-	"Secreto/app"
-	"Secreto/controller"
-
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"go-crud-auth/app"
+	"go-crud-auth/config"
+	"go-crud-auth/helper"
 )
 
 func main() {
-	// Echo instance
-	e := echo.New()
-	app.NewDatabase()
+	config, err := config.NewConfig()
+	helper.PanicError(err)
 
-	authController := controller.NewAuthController()
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-
-	// Router -> Handler
-
-	e.GET("/login", authController.Login)
-
-	e.Logger.Fatal(e.Start(":3000"))
+	app := app.NewServer(config)
+	app.Start(config.Port)
 }

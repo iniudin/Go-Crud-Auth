@@ -1,7 +1,7 @@
 package service
 
 import (
-	"Secreto/model/domain"
+	"go-crud-auth/model/domain"
 
 	"github.com/golang-jwt/jwt"
 )

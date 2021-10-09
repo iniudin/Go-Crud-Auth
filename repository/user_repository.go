@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"Secreto/model/domain"
 	"context"
+	"go-crud-auth/model/domain"
 )
 
 type UserRepository interface {

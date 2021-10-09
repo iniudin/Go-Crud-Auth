@@ -3,9 +3,11 @@ module go-crud-auth
 go 1.17
 
 require (
-	github.com/caarlos0/env v3.5.0+incompatible
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/joeshaw/envdecode v0.0.0-20200121155833-099f1fc765bd
+	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.6.1
+	github.com/pkg/errors v0.8.1
 	gorm.io/driver/postgres v1.1.2
 	gorm.io/gorm v1.21.15
 )

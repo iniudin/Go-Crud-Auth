@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"Secreto/app"
-	"Secreto/model/domain"
 	"context"
+	"go-crud-auth/app"
+	"go-crud-auth/model/domain"
 
 	"gorm.io/gorm"
 )

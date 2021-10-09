@@ -1,14 +1,17 @@
 package config
 
 import (
-	"fmt"
+	"log"
 
-	"github.com/caarlos0/env"
+	"github.com/joeshaw/envdecode"
+	"github.com/joho/godotenv"
+	"github.com/pkg/errors"
 )
 
 type Config struct {
-	Port     string `env:"PORT,default=8000"`
-	Database DatabaseConfig
+	Port         string `env:"PORT,default=8000"`
+	Database     DatabaseConfig
+	JWTSecretKey string `env:"JWT_SECRET_KEY,required"`
 }
 
 type DatabaseConfig struct {
@@ -20,9 +23,14 @@ type DatabaseConfig struct {
 }
 
 func NewConfig() (*Config, error) {
-	cfg := Config{}
-	if err := env.Parse(&cfg); err != nil {
-		fmt.Printf("%+v\n", err)
+	var config Config
+	if err := godotenv.Load(); err != nil {
+		log.Println(errors.Wrap(err, "[NewConfig] error reading .env file, defaulting to OS environment variables"))
 	}
-	return &cfg, nil
+
+	if err := envdecode.Decode(&config); err != nil {
+		return nil, errors.Wrap(err, "[NewConfig] error decoding env")
+	}
+
+	return &config, nil
 }
