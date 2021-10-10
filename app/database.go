@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go-crud-auth/config"
 	"go-crud-auth/helper"
+	"go-crud-auth/model/domain"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -21,5 +22,15 @@ func NewDatabase(config *config.Config) *gorm.DB {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	helper.PanicError(err)
+	
+	db.AutoMigrate(
+		&domain.User{},
+		&domain.Mentor{},
+		&domain.Course{},
+		&domain.Video{},
+		&domain.Attachment{},
+	)
+
+	
 	return db
 }
