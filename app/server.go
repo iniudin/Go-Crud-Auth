@@ -13,11 +13,11 @@ type Server struct {
 	Config *config.Config
 }
 
-func NewServer(cfg *config.Config) *Server {
+func NewServer(config *config.Config) *Server {
 	return &Server{
 		Echo:   echo.New(),
-		DB:     NewDatabase(cfg),
-		Config: cfg,
+		DB:     NewDatabase(config),
+		Config: config,
 	}
 }
 

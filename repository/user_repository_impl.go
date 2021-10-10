@@ -4,16 +4,14 @@ import (
 	"context"
 	"go-crud-auth/app"
 	"go-crud-auth/model/domain"
-
-	"gorm.io/gorm"
 )
 
 type UserRepositoryImpl struct {
-	connection *gorm.DB
+	server *app.Server
 }
 
-func NewUserRepository() UserRepository {
-	return &UserRepositoryImpl{connection: app.NewDatabase()}
+func NewUserRepository(server *app.Server) UserRepository {
+	return &UserRepositoryImpl{server: server}
 }
 
 func (repository *UserRepositoryImpl) Save(ctx context.Context, user domain.User) {

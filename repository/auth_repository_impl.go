@@ -1,12 +1,17 @@
 package repository
 
-import "context"
+import (
+	"context"
+
+	"gorm.io/gorm"
+)
 
 type AuthRepositoryImpl struct {
+	DB *gorm.DB
 }
 
-func NewAuthRepository() AuthRepository {
-	return &AuthRepositoryImpl{}
+func NewAuthRepository(db *gorm.DB) AuthRepository {
+	return &AuthRepositoryImpl{DB: db}
 }
 
 func (repository *AuthRepositoryImpl) Login(ctx context.Context, username string, password string) {
