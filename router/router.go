@@ -20,5 +20,9 @@ func NewRoutes(server *app.Server) {
 
 	u := server.Echo.Group("/users")
 	u.POST("/", userController.Create)
+	u.PUT("/:userId", userController.Update)
+	u.DELETE("/:userId", userController.Delete)
+	u.GET("/", userController.FindAll)
+	u.GET("/:userId", userController.FindById)
 
 }

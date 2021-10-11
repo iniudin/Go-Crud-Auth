@@ -37,18 +37,61 @@ func (service *UserServiceImpl) Create(ctx context.Context, request requests.Use
 	}
 }
 
-func (service *UserServiceImpl) Update(ctx context.Context, request requests.UserUpdate) responses.User {
-	panic("not implemented") // TODO: Implement
+func (service *UserServiceImpl) Update(ctx context.Context, request requests.UserUpdate, userId uint) responses.User {
+	userRequest := domain.User{
+		Name:     request.Name,
+		Username: request.Username,
+		Email:    request.Email,
+		Password: request.Password,
+	}
+	userRequest.ID = userId
+
+	user, err := service.UserRepository.Update(ctx, userRequest)
+	helper.PanicError(err)
+
+	return responses.User{
+		ID:       user.ID,
+		Name:     user.Name,
+		Username: user.Username,
+		Email:    user.Email,
+	}
 }
 
 func (service *UserServiceImpl) Delete(ctx context.Context, userId uint) {
-	panic("not implemented") // TODO: Implement
+	user := domain.User{}
+	user.ID = userId
+
+	err := service.UserRepository.Delete(ctx, user)
+	helper.PanicError(err)
 }
 
 func (service *UserServiceImpl) FindById(ctx context.Context, userId uint) responses.User {
-	panic("not implemented") // TODO: Implement
+	user := domain.User{}
+	user.ID = userId
+
+	user, err := service.UserRepository.FindById(ctx, user)
+	helper.PanicError(err)
+
+	return responses.User{
+		ID:       user.ID,
+		Name:     user.Name,
+		Username: user.Username,
+		Email:    user.Email,
+	}
 }
 
 func (service *UserServiceImpl) FindAll(ctx context.Context) []responses.User {
-	panic("not implemented") // TODO: Implement
+	var userResponses []responses.User
+	users, err := service.UserRepository.FindAll(ctx, []domain.User{})
+	helper.PanicError(err)
+	for _, user := range users {
+		userResponses = append(userResponses, responses.User{
+			ID:       user.ID,
+			Name:     user.Name,
+			Username: user.Username,
+			Email:    user.Email,
+		})
+	}
+
+	return userResponses
 }

@@ -25,18 +25,18 @@ func (repository *UserRepositoryImpl) Update(ctx context.Context, user domain.Us
 	return user, repository.server.DB.Model(&user).Updates(&user).Error
 }
 
-func (repository *UserRepositoryImpl) Delete(ctx context.Context, user domain.User, userID uint) error {
+func (repository *UserRepositoryImpl) Delete(ctx context.Context, user domain.User) error {
 	if err := repository.server.DB.First(&user, user.ID).Error; err != nil {
 		return err
 	}
-	return repository.server.DB.Model(&user).Updates(&user).Error
+	return repository.server.DB.Delete(&user).Error
 }
 
-func (repository *UserRepositoryImpl) FindById(ctx context.Context, user domain.User, userID uint) (domain.User, error) {
+func (repository *UserRepositoryImpl) FindById(ctx context.Context, user domain.User) (domain.User, error) {
 	return user, repository.server.DB.First(&user, user.ID).Error
 }
 
 func (repository *UserRepositoryImpl) FindAll(ctx context.Context, users []domain.User) ([]domain.User, error) {
-	return users, repository.server.DB.First(&users).Error
+	return users, repository.server.DB.Find(&users).Error
 
 }
