@@ -10,12 +10,12 @@ import (
 )
 
 type AuthServiceImpl struct {
-	config *config.Config
+	Config *config.Config
 }
 
 func NewAuthService(config *config.Config) AuthService {
 	return &AuthServiceImpl{
-		config: config,
+		Config: config,
 	}
 }
 
@@ -28,7 +28,7 @@ func (service *AuthServiceImpl) CreateAccessToken(user domain.User) (accessToken
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	t, err := token.SignedString([]byte(service.config.JWTSecretKey))
+	t, err := token.SignedString([]byte(service.Config.JWTSecretKey))
 	helper.PanicError(err)
 
 	return t, expires, err

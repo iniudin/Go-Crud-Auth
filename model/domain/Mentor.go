@@ -4,8 +4,8 @@ import "gorm.io/gorm"
 
 type Mentor struct {
 	gorm.Model
-	Occupation        string
+	Occupation  string
 	Institution string
-	Photo string
-	UserID    uint
+	Photo       string
+	UserID      uint
 }

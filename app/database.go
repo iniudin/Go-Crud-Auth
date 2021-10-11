@@ -22,7 +22,7 @@ func NewDatabase(config *config.Config) *gorm.DB {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	helper.PanicError(err)
-	
+
 	db.AutoMigrate(
 		&domain.User{},
 		&domain.Mentor{},
@@ -31,6 +31,5 @@ func NewDatabase(config *config.Config) *gorm.DB {
 		&domain.Attachment{},
 	)
 
-	
 	return db
 }

@@ -8,15 +8,15 @@ import (
 )
 
 type AuthControllerImpl struct {
-	server *app.Server
+	Server *app.Server
 }
 
 func NewAuthController(server *app.Server) AuthController {
-	return &AuthControllerImpl{server: server}
+	return &AuthControllerImpl{Server: server}
 }
 
 func (controller *AuthControllerImpl) Login(c echo.Context) error {
-	return c.String(http.StatusOK, "AuthController - Login")
+	return c.JSON(http.StatusOK, "AuthController - Login")
 }
 
 func (controller *AuthControllerImpl) Logout(c echo.Context) error {

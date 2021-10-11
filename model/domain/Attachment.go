@@ -4,8 +4,8 @@ import "gorm.io/gorm"
 
 type Attachment struct {
 	gorm.Model
-	Title        string
+	Title      string
 	Attachment string
-	Type    uint
+	Type       uint
 	VideoID    uint
 }
